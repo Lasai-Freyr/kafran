@@ -1,20 +1,16 @@
 <template>
-    <header>
-        <div class="header bg-primary">
-            <div class="LogoHeader">
-                <img src="../assets/images/logoOld.jpg" alt="Logo Kafran immobilier" id="Logo">
-            </div>
+    <footer>
+        <div class="footer bg-primary">
             <nav>
                 <ul>
-                    <li> <router-link :to="{name: 'Home'}"> Accueil </router-link> </li>
-                    <li>  <router-link :to="{name: 'Acheter'}"> Acheter </router-link> </li>
-                    <li>  <router-link :to="{name: 'Vendre'}"> Vendre </router-link> </li>
+                    <li>  Mentions légales  </li>
+                    <li> Politique de confidentialité </li>
                     <li>  <router-link :to="{name: 'About'}"> Kafran Immobilier </router-link> </li>
                     <li>  <router-link :to="{name: 'Contact'}"> Contact </router-link> </li>
                 </ul>
             </nav>
         </div>
-    </header>
+    </footer>
 </template>
 
 <script>
@@ -26,13 +22,14 @@ export default {
 </script>
 
 <style lang="scss">
-    .header {
+    .footer {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        bottom: 0;
     }
-    #Logo {
-        width: 150px;
+    #logo {
+        width: 200px;
         display: flex;
         justify-content: flex-start;
     } 
