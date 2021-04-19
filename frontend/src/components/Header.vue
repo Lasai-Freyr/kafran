@@ -7,6 +7,7 @@
             <nav>
                 <ul>
                     <li> <router-link :to="{name: 'Home'}"> Accueil </router-link> </li>
+                    <li> <router-link :to="{name: 'List'}"> Liste des biens </router-link> </li>
                     <li>  <router-link :to="{name: 'Acheter'}"> Acheter </router-link> </li>
                     <li>  <router-link :to="{name: 'Vendre'}"> Vendre </router-link> </li>
                     <li>  <router-link :to="{name: 'About'}"> Kafran Immobilier </router-link> </li>

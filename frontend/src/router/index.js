@@ -5,6 +5,7 @@ import About from '../views/About.vue'
 import Acheter from '../views/Acheter.vue'
 import Vendre from '../views/Vendre.vue'
 import Contact from '../views/Contact.vue'
+import List from '../views/Liste.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/contact',
     name: 'Contact',
     component: Contact
+  },
+  {
+    path: '/list',
+    name: 'List',
+    component: List
   },
 ]
 
