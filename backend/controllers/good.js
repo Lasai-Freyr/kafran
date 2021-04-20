@@ -14,12 +14,12 @@ exports.findAllGood = (req, res, next) => {
 };
 
 exports.createGood = (req, res) => {  
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, '753215846392576321586015406875');
-    const userId = req.body.userId;
+    //const token = req.headers.authorization.split(' ')[1];
+    //const decodedToken = jwt.verify(token, '753215846392576321586015406875');
+    //const userId = req.body.userId;
     const goodObject = req.body;
-    console.log("user***********", userId);
-    delete postObject.id;
+    //console.log("user***********", userId);
+    delete goodObject.id;
     if (!req.body.pic1) {
       const good = new Good({
         ...goodObject })

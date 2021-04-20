@@ -3,7 +3,7 @@ const sql = require('./db');
 const Good = function(good) {
     //this.id = good.id
   //this.userId = good.userId
-  this.squarreMeter = good.squarreMeter
+  this.squarreMeters = good.squarreMeters
   this.style = good.style
   this.price = good.price
   this.nbrSDB = good.nbrSDB
@@ -11,7 +11,6 @@ const Good = function(good) {
   this.city = good.city
   this.address = good.address
   this.dateAjout = good.dateAjout
-  this.state = good.state
   this.pic1 = good.pic1
   //this.pic2 = good.pic2
   //this.pic3 = good.pic3
@@ -26,9 +25,9 @@ const Good = function(good) {
   this.postalCode = good.postalCode
 }
 
-Good.createAGood = (postObject, result) => {
-  sql.query(`INSERT INTO goods values( "${goodObject.squarreMeter}", "${goodObject.style}", "${goodObject.price}", "${goodObject.nbrSDB}",
-  "${goodObject.nbrBedrooms}", "${goodObject.city}", "${goodObject.address}", NOW(), "${goodObject.state}", "${goodObject.pic1}",
+Good.createAGood = (goodObject, result) => {
+  sql.query(`INSERT INTO goods values(null, "${goodObject.squarreMeters}", "${goodObject.style}", "${goodObject.price}", "${goodObject.nbrSDB}",
+  "${goodObject.nbrBedrooms}", "${goodObject.city}", "${goodObject.address}", NOW(), "${goodObject.pic1}", 0, 0, 0, 0, 0, 0, 0, 0, 0,
   "${goodObject.description}", "${goodObject.postalCode}")`, (err, res) => {
     if (err) {
       console.log('error: ', err );
@@ -41,8 +40,8 @@ Good.createAGood = (postObject, result) => {
 }
 
 Good.findAll = (result) => {
-  sql.query(`SELECT  DATE_FORMAT(dateAjout, ' %e/%c/%Y à %T') AS dateAjout, squarreMeter, style, price, goods.id, nbrSDB, nbrBedrooms, city, address,
-  state, pic1, description, postalCode FROM goods ORDER BY dateAjout DESC`, (err, res) => {
+  sql.query(`SELECT  DATE_FORMAT(dateAjout, ' %e/%c/%Y') AS dateAjout, squarreMeters, style, price, goods.id, nbrSDB, nbrBedrooms, city, address,
+  pic1, description, postalCode FROM goods ORDER BY dateAjout DESC`, (err, res) => {
     if (err) {
       console.log('error: ', err );
       result(null, err);
@@ -54,8 +53,8 @@ Good.findAll = (result) => {
 }
 
 Good.findByPk = (id, result) => {
-  sql.execute(`SELECT DATE_FORMAT(datePost, ' %e/%c/%Y à %T') AS datePost, title, likes, dislikes, usersLiked, usersDisliked,
-   posts.id, userId, content, image, name, address  FROM goods  WHERE goods.id = ? ;`,
+  sql.execute(`SELECT DATE_FORMAT(dateAjout, ' %e/%c/%Y') AS dateAjout, squarreMeters, style, price, goods.id, nbrSDB, nbrBedrooms, city, address,
+  pic1, description, postalCode  FROM goods  WHERE goods.id = ? ;`,
    [`${id}`],
     (err, res) => {
     if (err) {

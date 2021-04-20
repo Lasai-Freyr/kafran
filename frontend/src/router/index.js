@@ -6,6 +6,7 @@ import Acheter from '../views/Acheter.vue'
 import Vendre from '../views/Vendre.vue'
 import Contact from '../views/Contact.vue'
 import List from '../views/Liste.vue'
+import Good from '../views/Bien.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
     path: '/acheter',
     name: 'Acheter',
     component: Acheter
+  },
+  {
+    path: '/bien/:id',
+    name: 'Good',
+    component: Good
   },
   {
     path: '/vendre',
