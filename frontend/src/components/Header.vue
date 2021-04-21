@@ -5,13 +5,13 @@
                 <img src="../assets/images/logoOld.jpg" alt="Logo Kafran immobilier" id="Logo">
             </div>
             <nav>
-                <ul>
-                    <li> <router-link :to="{name: 'Home'}"> Accueil </router-link> </li>
-                    <li> <router-link :to="{name: 'List'}"> Liste des biens </router-link> </li>
-                    <li>  <router-link :to="{name: 'Acheter'}"> Acheter </router-link> </li>
-                    <li>  <router-link :to="{name: 'Vendre'}"> Vendre </router-link> </li>
-                    <li>  <router-link :to="{name: 'About'}"> Kafran Immobilier </router-link> </li>
-                    <li>  <router-link :to="{name: 'Contact'}"> Contact </router-link> </li>
+                <ul class="ul-header">
+                    <li class="li-header"> <router-link :to="{name: 'Home'}"> Accueil </router-link> </li>
+                    <li class="li-header"> <router-link :to="{name: 'List'}"> Liste des biens </router-link> </li>
+                    <li class="li-header">  <router-link :to="{name: 'Acheter'}"> Acheter </router-link> </li>
+                    <li class="li-header">  <router-link :to="{name: 'Vendre'}"> Vendre </router-link> </li>
+                    <li class="li-header">  <router-link :to="{name: 'About'}"> Kafran Immobilier </router-link> </li>
+                    <li class="li-header">  <router-link :to="{name: 'Contact'}"> Contact </router-link> </li>
                 </ul>
             </nav>
         </div>
@@ -48,11 +48,12 @@ export default {
             text-decoration: none;
             color:  rgb(255, 255, 255);
         }
-        ul {
+        .ul-header {
             display: flex;
             flex-direction: row;
+            margin: 0;
         }
-        li {
+        .li-header {
             list-style: none;
             margin-right: 20px;
             margin-bottom: 5px;
