@@ -3,9 +3,6 @@
         <div >
             <h1> ché pas </h1>           
             <div class="post-box">
-                 <div class="box-button">
-                    <button  class="button-red" @click="DeleteGood(good.id)" title="supprimer le bien">X</button>
-                </div>
                 <h3> {{good.style}} {{good.squarreMeters}} m² </h3>
                 <p> {{good.city}} </p>
                 <img :src="`/images/${good.pic1}`" :alt="good.pic1"> 
@@ -52,16 +49,7 @@ import http from '../../http';
     },    
     beforeMounted() {
         this.$router.go();
-    },
-
-    methods: {
-        DeleteGood(id) {
-            http.delete(`/goods/${id}`)
-            .then(() => {
-                this.$router.push( {name:"Liste"});
-            })
-        } 
-    }    
+    }  
 }
 </script>
 
@@ -72,15 +60,6 @@ import http from '../../http';
         margin: auto;
         border-radius: 20px;
         box-shadow: gray 4px 4px;
-    }
-    .button-red {
-        background-color: #ff0000;
-        align-self: flex-end;
-    }
-    .box-button {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
     }
     img {
         max-width: 90%;

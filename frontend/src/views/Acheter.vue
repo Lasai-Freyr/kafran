@@ -1,29 +1,36 @@
 <template>
   <div class="about">
-      <ul v-if="goods && goods.length" class="ul-goods">
-        <li v-for="good of goods" v-bind:key="good.id" class="li-goods">
-          <router-link :to="{name: 'Good', params:good, id:good.id}">
-            <h3 class="p-title">{{good.style}} {{good.squarreMeters}} m²</h3>
-            <p> 
-              {{ good.city }} </p>
-              <div v-if="good.pic1">
-                <img :src="`/images/${good.pic1}`" :alt="good.pic1">
-              </div>
-              <div>
-                <p> {{good.price}} € </p>
-              </div>
-            <p> publié le {{ good.dateAjout}}  </p>
-          </router-link>
-        </li>
-      </ul>
+      <div>
+        <FormSearch/>
+      </div>
+      <div>
+        <ul v-if="goods && goods.length" class="ul-goods">
+          <li v-for="good of goods" v-bind:key="good.id" class="li-goods">
+            <router-link :to="{name: 'Good', params:good, id:good.id}">
+              <h3 class="p-title">{{good.style}} {{good.squarreMeters}} m²</h3>
+              <p class="text-center"> {{ good.city }} </p>
+                <div v-if="good.pic1" class="d-flex justify-content-center">
+                  <img :src="`/images/${good.pic1}`" :alt="good.pic1" >
+                </div>
+                <div>
+                  <p class="text-center"> {{good.price}} € </p>
+                </div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
   </div>
 </template>
 
 <script>
 import http from '../../http';
+import FormSearch from '@/components/Form-Search.vue';
 //import VueAxios from 'vue-axios';
 
 export default {
+  components: {
+        FormSearch,
+    },
   data() {
     return {
       goods: [],
@@ -44,15 +51,6 @@ export default {
 </script>
 
 <style lang="scss">
-  .likes {
-    color: green;
-    margin-right: 5px;
-   }
-   .dislikes {
-     color:  #ce0000;
-     margin-left: 15px;
-     margin-right: 5px;
-   }
   .ul-goods {
     width: 60%;
     display: flex;
@@ -80,5 +78,6 @@ export default {
   .p-title {
     font-weight: bold;
     font-size: 20px;
+    text-align: center;
   }
 </style>

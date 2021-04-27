@@ -40,7 +40,7 @@
                     <TextareaAutosize name="description" id="description" v-model="description" placeholder=" Description du bien"> </TextareaAutosize>
                 </div>
                 <div id="appImg">
-                    <input class="button-post" type="file" accept="image/*" @change="onFileSelected($event)" name="pic1" id ="pic1" multiple="oui"/>
+                    <input class="button-post" type="file" accept="image/*" @change="onFileSelected($event)" name="pic1[]" id ="pic1" multiple/>
                     <div id="preview">
                         <img v-if="url" :src="url" />
                     </div>
@@ -112,7 +112,6 @@ export default {
       nbrBedrooms: null,
       nbrSDB: null,
       description: null,
-      selectedFile: null,
       url: null
     }
   },
@@ -123,9 +122,16 @@ export default {
       const file =  event.target.files[0];
       this.url = URL.createObjectURL(file);  
     },
+    
     addGood() {
-      var path = `${pic1.value}`;
-      var filename = path.replace(/^.*\\/, "");       
+        var path = `${pic1.value}`;
+        var filename = path.replace(/^.*\\/, ""); 
+        console.log("pic.value", pic1.value)
+        let images=filename;
+        let image = new Array();
+        for (let i=0;i<images.length;i++)
+        {image[i] =filename;}
+        
       const form = new FormData();
       form.append("style", style.value);
       form.append("address", address.value);
@@ -136,8 +142,13 @@ export default {
       form.append("nbrBedrooms", nbrBedrooms.value);
       form.append("nbrSDB", nbrSDB.value);
       form.append("description", description.value);
-      form.append("imageFile", this.selectedFile );
-      form.append("pic1", filename );
+      form.append("pic1", image );
+      //form.append("images", filename );
+      console.log("filename", filename );
+      console.log("images", images );
+      console.log("image", image );
+      //console.log("pics : ", pics);
+      //console.log("images : ", images);
       http.post(`/goods`, form, {'Content-Type': 'multipart/form-data' })
       .then(response => {
       })
