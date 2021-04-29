@@ -2,14 +2,12 @@
     <div>
         <div class="row col-10 mx-auto my-3 d-flex justify-content-center">
             <button class="btn-add" v-on:click="add = true , modd = false"> Ajouter un bien </button>
-            <button class="btn-add" v-on:click="add = false , modd = true"> Modifier un bien </button>
+            
         </div>
         <div v-show="add" class="col-10 mx-auto ">
             <Add/>
         </div>
-        <div v-show="modd" class="col-10 mx-auto">
-            <Modd/>
-        </div>
+        
         <div>
            <ul v-if="goods && goods.length" class="ul-goods">
                 <li v-for="good of goods" v-bind:key="good.id" class="li-goods">
@@ -43,15 +41,13 @@ import http from '../../http';
 
 export default {
         components: {
-        Add,
-        Modd
+        Add
     },
     data() {
         return {
            goods: [],
             errors: [],
             add: false,
-            modd: false,
             error: null
         
         } 

@@ -10,6 +10,8 @@ router.get('/',   goodCtrl.findAllGood);
 router.get('/:id', goodCtrl.findOneGood);
 router.delete('/:id', goodCtrl.deleteGood);
 router.post('/',  multer,  goodCtrl.createGood);
+router.put('/:id',  multer,  goodCtrl.ModifyGood);
+//router.post('/:id',  multer,  goodCtrl.AddPicsGood);
 
 // remettre les auth
 

@@ -96,7 +96,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
 import http from '../../http';
-//import Posts from '@/components/Posts-component.vue'
 
 export default {
   name: "Form-Add",
@@ -142,8 +141,8 @@ export default {
       form.append("nbrBedrooms", nbrBedrooms.value);
       form.append("nbrSDB", nbrSDB.value);
       form.append("description", description.value);
-      form.append("pic1", image );
-      //form.append("images", filename );
+      //form.append("pic1", image );
+        form.append("pic1", filename );
       console.log("filename", filename );
       console.log("images", images );
       console.log("image", image );

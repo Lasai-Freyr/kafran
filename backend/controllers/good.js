@@ -52,6 +52,34 @@ exports.findOneGood = (req, res, next) => {
   })
 }
 
+exports.ModifyGood = (req, res, next) => {
+  id = req.params.id;
+  Good.findByPk(id,(err, data) => {
+    if (err) {
+      res.status(500).send({message: 'Une erreur s\'est produite'});
+    } 
+    else { 
+      const goodObject = req.body;
+      console.log("goodObject : ", goodObject)
+        //console.log("user***********", userId);
+     
+          const good = new Good({
+            ...goodObject })
+            console.log("goodObject 2 : ", goodObject)
+      Good.ModifyAGood(goodObject,(err, data) => {
+      if (err) {
+        res.status(500).send({message: 'Une erreur s\'est produite'});
+      } 
+      else { 
+        res.status(201).send({ message: 'Bien Modifié !'})
+      }
+      })
+    }
+    })
+  
+}
+
+
 exports.deleteGood = (req, res, next) => {
   const id = req.params.id;
   Good.deleteOneGood(id,(err) => {

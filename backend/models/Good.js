@@ -26,9 +26,27 @@ const Good = function(good) {
 }
 
 Good.createAGood = (goodObject, result) => {
-  sql.query(`INSERT INTO goods values(null, "${goodObject.squarreMeters}", "${goodObject.style}", "${goodObject.price}", "${goodObject.nbrSDB}",
-  "${goodObject.nbrBedrooms}", "${goodObject.city}", "${goodObject.address}", NOW(), "${goodObject.pic1}", 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  "${goodObject.description}", "${goodObject.postalCode}")`, (err, res) => {
+  
+  sql.query(`INSERT INTO goods values(null, ${goodObject.squarreMeters}, "${goodObject.style}", ${goodObject.price}, ${goodObject.nbrSDB},
+  ${goodObject.nbrBedrooms}, "${goodObject.city}", "${goodObject.address}", NOW(), "${goodObject.pic1}", 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  "${goodObject.description}", ${goodObject.postalCode})`, (err, res) => {
+    if (err) {
+      console.log('error: ', err );
+        result(null, err);
+      return;
+    }
+    console.log("posts ajouté");
+    result(null, res);
+  });
+}
+
+Good.ModifyAGood = (goodObject, result) => {
+  console.log("goodObject 3 : ", goodObject)
+  sql.execute(`UPDATE goods SET  squarreMeters = ${goodObject.squarreMeters}, style =  "${goodObject.style}", price = ${goodObject.price}, nbrSDB = ${goodObject.nbrSDB},
+  nbrBedrooms = ${goodObject.nbrBedrooms}, city = "${goodObject.city}", address = "${goodObject.address}", description = "${goodObject.description}", 
+  postalCode = ${goodObject.postalCode}  WHERE goods.id = ? ;`, 
+  [`${goodObject.id}`],
+  (err, res) => {
     if (err) {
       console.log('error: ', err );
         result(null, err);
