@@ -9,6 +9,7 @@
                 <h3> {{good.style}} {{good.squarreMeters}} m² </h3>
                 <p> {{good.city}} </p>
                 <img :src="`/images/${good.pic1}`" :alt="good.pic1"> 
+                <img :src="`/images/${good.pic2}`" :alt="good.pic2"> 
                 <p> {{good.price}} € </p>
                 <p> {{ good.description}} </p>
                 <div id="map"></div>

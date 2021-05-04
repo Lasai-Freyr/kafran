@@ -2,7 +2,7 @@
     <div class=" col-10 mx-auto my-3 form-add">
         <h2> Formulaire d'ajout de bien </h2>
         <div>
-            <form class="form-addition" @submit="addGood()">
+            <form class="form-addition" id="file-catcher" @submit="addGood() ">
                 <div>
                     <label for="style"> type de bien : </label>
                     <input name="style" id="style" type="texte" v-model="style"/> <br>
@@ -40,10 +40,43 @@
                     <TextareaAutosize name="description" id="description" v-model="description" placeholder=" Description du bien"> </TextareaAutosize>
                 </div>
                 <div id="appImg">
-                    <input class="button-post" type="file" accept="image/*" @change="onFileSelected($event)" name="pic1[]" id ="pic1" multiple/>
-                    <div id="preview">
-                        <img v-if="url" :src="url" />
+                    <input class="button-post" type="file" accept="image/*" @change="onFileSelected($event)" name="pic1" id ="file-input" multiple/>
+                    <div id="file-list-display" v-if="url" >
+                        <ul>
+                            <li v-if="url[0]">
+                                <img   :src="url[0]" />
+                            </li>
+                            <li v-if="url[1]" >
+                                <img  :src="url[1]" />
+                            </li>
+                            <li v-if="url[2]" >
+                                <img  :src="url[2]" />
+                            </li>
+                            <li v-if="url[3]" >
+                                <img  :src="url[3]" />
+                            </li>
+                            <li v-if="url[4]" >
+                                <img  :src="url[4]" />
+                            </li>
+                            <li v-if="url[5]" >
+                                <img  :src="url[5]" />
+                            </li>
+                            <li v-if="url[6]" >
+                                <img  :src="url[6]" />
+                            </li>
+                            <li v-if="url[7]" >
+                                <img  :src="url[7]" />
+                            </li>
+                            <li v-if="url[8]" >
+                                <img  :src="url[8]" />
+                            </li>
+                            <li v-if="url[9]" >
+                                <img  :src="url[9]" />
+                            </li>
+                            
+                        </ul>
                     </div>
+                  
                 </div>
                   
                <input class="button-post" type="submit" value="Poster" />
@@ -93,9 +126,11 @@
     }
 </style>
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
 import http from '../../http';
+//import {AddFiles} from '../../fileAdd.js';
 
 export default {
   name: "Form-Add",
@@ -111,26 +146,73 @@ export default {
       nbrBedrooms: null,
       nbrSDB: null,
       description: null,
-      url: null
+      url: [],
+      index: null
     }
   },
   methods: {
     
+    
+
     onFileSelected(event) {
-      this.selectedFile  = event.target.files[0];
-      const file =  event.target.files[0];
-      this.url = URL.createObjectURL(file);  
+        var url = [];
+        
+       
+        for (let i = 0; i < event.target.files.length; i++) {
+            this.selectedFile  = event.target.files[i];
+            
+            const file =  event.target.files[i];
+            url.push(file);
+            this.url[i] = URL.createObjectURL(file);
+            console.log('file : ', file);
+            console.log('url : ', url);
+        }
     },
     
     addGood() {
-        var path = `${pic1.value}`;
-        var filename = path.replace(/^.*\\/, ""); 
-        console.log("pic.value", pic1.value)
-        let images=filename;
-        let image = new Array();
-        for (let i=0;i<images.length;i++)
-        {image[i] =filename;}
-        
+        var fileCatcher = document.getElementById('file-catcher');
+        var fileInput = document.getElementById('file-input');
+          var fileList = [];
+        //var renderFileList;
+        //var sendFile;
+          fileCatcher.addEventListener('submit', function (evnt) {
+            evnt.preventDefault();
+            fileList.forEach(function (file) {
+               
+            });
+        }); 
+        var AllFiles = [];
+         console.log("length : ",fileInput.files.length);
+        for ( let i = 0; i< fileInput.files.length; i++) {
+            AllFiles[i] = fileInput.files[i];
+            fileList[i] = fileInput.files[i].name;            
+            console.log("AllFiles1 : ", AllFiles);
+            console.log("fileList2 : ", fileList);
+        //    renderFileListe();
+        };
+
+        //renderFileList = function() {
+        //    fileList.forEach( function (file, index) {
+        //        var fileDisplayE1 = document.createElement('p');
+        //        fileDisplayE1.innerHTML = (index + 1) + ' : ' + file.name;
+        //        fileDisplayE1.appendChild(fileDisplayE1);
+        //    });
+        //};
+         
+
+        var files = fileInput.files;
+        console.log("files : ", files);
+        console.log("fileInput : ", fileInput.files);
+        console.log("fileList : ", fileList);
+        //var path = `${pic1.value}`;
+        //var filename = path.replace(/^.*\\/, ""); 
+        //console.log("pic.value", pic1.value)
+        //let images=filename;
+        //let image = new Array();
+        //for (let i=0;i<images.length;i++)
+        //{image[i] =filename;}
+    //   AddFiles(); 
+    
       const form = new FormData();
       form.append("style", style.value);
       form.append("address", address.value);
@@ -141,24 +223,44 @@ export default {
       form.append("nbrBedrooms", nbrBedrooms.value);
       form.append("nbrSDB", nbrSDB.value);
       form.append("description", description.value);
+      for (let i = 0 ; i < AllFiles.length; i++) {
+          if ( AllFiles[i]) {
+              form.append(`imageFile`, AllFiles[i] );
+          }
+      }
+      //form.append("imageFile", AllFiles[0] );
+      //form.append("imageFile", AllFiles[1] );
+      console.log("allfiles : ", AllFiles );
+      for (let i = 0 ; i < fileList.length; i++) {
+          if ( fileList[i]) {
+              form.append(`pic${i+1}`, fileList[i] );
+          }
+      }
+      //form.append("pic1", fileList[0] );
+      //form.append("pic2", fileList[1] );
       //form.append("pic1", image );
-        form.append("pic1", filename );
-      console.log("filename", filename );
-      console.log("images", images );
-      console.log("image", image );
+     //   form.append("pic1", file );
+     // console.log("filename", filename );
+     // console.log("images", images );
+    //  console.log("image", image );
       //console.log("pics : ", pics);
       //console.log("images : ", images);
+      //fileAdd;
       http.post(`/goods`, form, {'Content-Type': 'multipart/form-data' })
       .then(response => {
       })
       .catch(e => {
         this.errors.push(e)
       })
-    }
-  }, created() {
+    },
+
+    
+  }, 
+
+  created() {
     const userId = localStorage.getItem("user");
     //this.$router.go();
     console.log("**********",userId);
-  }
+  },
 }
 </script>
