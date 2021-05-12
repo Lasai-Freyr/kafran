@@ -8,9 +8,9 @@ const goodCtrl = require('../controllers/good.js');
 
 router.get('/',   goodCtrl.findAllGood);
 router.get('/:id', goodCtrl.findOneGood);
-router.delete('/:id', goodCtrl.deleteGood);
-router.post('/',  multer,  goodCtrl.createGood);
-router.put('/:id',  multer,  goodCtrl.ModifyGood);
+router.delete('/:id', auth, goodCtrl.deleteGood);
+router.post('/',  multer, auth, goodCtrl.createGood);
+router.put('/:id',  multer, auth, goodCtrl.ModifyGood);
 //router.post('/:id',  multer,  goodCtrl.AddPicsGood);
 
 // remettre les auth

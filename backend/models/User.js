@@ -8,7 +8,8 @@ const User = function(user)  {
 }
 
 User.findAnUser = (userId, result) => {
-  sql.execute(`SELECT * FROM users WHERE users.id = ? OR users.address= ? ;`,
+  console.log("test 3.0");
+  sql.execute(`SELECT * FROM user WHERE user.id = ? OR user.name= ? ;`,
   [`${userId}`,`${userId}`], (err, res) => {
     if (err) {
       window.alert("adresse inconnue");

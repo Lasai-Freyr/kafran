@@ -1,8 +1,8 @@
 <template>
   <div class="about">
-      <div>
+    <!--  <div>
         <FormSearch/>
-      </div>
+      </div>  !-->
       <div>
         <ul v-if="goods && goods.length" class="ul-goods">
           <li v-for="good of goods" v-bind:key="good.id" class="li-goods">
@@ -24,12 +24,12 @@
 
 <script>
 import http from '../../http';
-import FormSearch from '@/components/Form-Search.vue';
+//import FormSearch from '@/components/Form-Search.vue';
 //import VueAxios from 'vue-axios';
 
 export default {
   components: {
-        FormSearch,
+      //  FormSearch,
     },
   data() {
     return {

@@ -11,7 +11,7 @@
         <div>
            <ul v-if="goods && goods.length" class="ul-goods">
                 <li v-for="good of goods" v-bind:key="good.id" class="li-goods">
-                    
+                    <router-link :to="{name: 'Good', params:good, id:good.id}">
                         <div class="box-button">
                          <button  class="button-red" @click="DeleteGood(good.id)" title="supprimer le post">Supprimer</button>
                         </div>
@@ -24,7 +24,7 @@
                             <p class="text-center"> {{good.price}} € </p>
                         </div>
                         <p> publié le {{ good.dateAjout}}  </p>
-               
+                    </router-link>
                 </li>
       </ul>
         </div>
@@ -66,7 +66,8 @@ export default {
     },
     methods: {
         DeleteGood(id) {
-            http.delete(`/goods/${id}`)           
+            http.delete(`/goods/${id}`)
+            this.$router.go();
         } 
     }
 }

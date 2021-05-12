@@ -7,11 +7,12 @@
             <nav>
                 <ul class="ul-header">
                     <li class="li-header"> <router-link :to="{name: 'Home'}"> Accueil </router-link> </li>
-                    <li class="li-header"> <router-link :to="{name: 'List'}"> Liste des biens </router-link> </li>
                     <li class="li-header">  <router-link :to="{name: 'Acheter'}"> Acheter </router-link> </li>
                     <li class="li-header">  <router-link :to="{name: 'Vendre'}"> Vendre </router-link> </li>
                     <li class="li-header">  <router-link :to="{name: 'About'}"> Kafran Immobilier </router-link> </li>
                     <li class="li-header">  <router-link :to="{name: 'Contact'}"> Contact </router-link> </li>
+                    <li class="li-header" v-if="isLoggedIn"> <router-link :to="{name: 'List'}"> Liste des biens </router-link> </li>
+                    <li class="li-header" v-if="isLoggedIn">  <a @click="logout">Se déconnecter</a> </li>
                 </ul>
             </nav>
         </div>
@@ -20,9 +21,17 @@
 
 <script>
 export default {
-//    setup() {
-//        
-//    },
+computed : {
+      isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+    },
+    methods: {
+      logout: function () {
+        this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/')
+        })
+      }
+    },
 }
 </script>
 

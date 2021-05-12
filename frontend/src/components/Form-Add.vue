@@ -41,9 +41,9 @@
                 </div>
                 <div id="appImg">
                     <input class="button-post" type="file" accept="image/*" @change="onFileSelected($event)" name="pic1" id ="file-input" multiple/>
-                    <div id="file-list-display" v-if="url" >
+                    <div id="PicsList">
                         <ul>
-                            <li v-if="url[0]">
+                            <li>
                                 <img   :src="url[0]" />
                             </li>
                             <li v-if="url[1]" >
@@ -124,6 +124,11 @@
         color: rgb(255, 255, 255);
         font-weight: bold;
     }
+
+    #PicsList {
+        display: none;
+    }
+
 </style>
 
 
@@ -147,11 +152,11 @@ export default {
       nbrSDB: null,
       description: null,
       url: [],
-      index: null
+      index: null,
+      displayPics: false,
     }
   },
   methods: {
-    
     
 
     onFileSelected(event) {
@@ -166,6 +171,7 @@ export default {
             this.url[i] = URL.createObjectURL(file);
             console.log('file : ', file);
             console.log('url : ', url);
+            document.querySelector("#PicsList").style.display =' block'; 
         }
     },
     
@@ -228,8 +234,6 @@ export default {
               form.append(`imageFile`, AllFiles[i] );
           }
       }
-      //form.append("imageFile", AllFiles[0] );
-      //form.append("imageFile", AllFiles[1] );
       console.log("allfiles : ", AllFiles );
       for (let i = 0 ; i < fileList.length; i++) {
           if ( fileList[i]) {
@@ -245,7 +249,6 @@ export default {
     //  console.log("image", image );
       //console.log("pics : ", pics);
       //console.log("images : ", images);
-      //fileAdd;
       http.post(`/goods`, form, {'Content-Type': 'multipart/form-data' })
       .then(response => {
       })
