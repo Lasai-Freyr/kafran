@@ -8,7 +8,20 @@
                 <button class="btn-add" v-on:click="add = false , modd = true" v-if="isLoggedIn"> Modifier un bien </button>
                 <h3> {{good.style}} {{good.squarreMeters}} m² ( {{good.city}} ) </h3>
                 <p> {{good.price}} € </p>
-                <img :src="`/images/${good.pic1}`" :alt="good.pic1"> 
+                <div class="row tight-width-whitespace portfolio-row">
+                    <article v-if="good.pic1" class="col-sm-6">
+                       
+                    </article>
+                </div>
+            <silent-box ref="silentbox" :gallery="images">
+                <p class="tw-font-light tw-mb-3">
+                    Items could be merged into groups that make galleries.
+                </p>
+                <template v-slot:silentbox-item="{ silentboxItem }">
+                    <p>{{ silentboxItem  }}</p>
+                    <img :src="`/images/${good.pic1}`" :alt="good.pic2">  
+                </template>
+            </silent-box>
                 <img :src="`/images/${good.pic2}`" :alt="good.pic2">                
                 <p> {{ good.description}} </p>
                 <div id="map">
@@ -40,22 +53,32 @@
     
 </style>
 
-
 <script>
 import http from '../../http';
 import Modd from '@/components/Form-Modify.vue';
 import GoogleMap from '@/components/GoogleMap.vue';
 
+
     export default {
+       
         name:"Good",
         components: {
         Modd,
-        GoogleMap
+        GoogleMap,
+        
         
     },
         data() {
             return {           
                 good: {},
+               images: [
+                    {
+                        src: "",
+                        srcSet: '',
+                        description: '',
+                    },
+                   
+                ],
                 modd: false,                
                 error: null,
                 user: null,
@@ -64,8 +87,9 @@ import GoogleMap from '@/components/GoogleMap.vue';
                     street: '',
                     city: '',
                     state: '',
-                    zip: ''
-                } 
+                    zip: '',
+                },
+                   
                 //userId: localStorage.getItem('user'),
             } 
         },
@@ -87,6 +111,18 @@ import GoogleMap from '@/components/GoogleMap.vue';
             .then(response => {
                 console.log("datapost",response.data);
                 this.good = response.data[0];
+                for (let i = 0 ; i < 9 ; i++) {
+                    //if ( this.good.pic[i+1]) {
+                        let name = "this.good.pic" + i;
+                        console.log("name", name);
+                        console.log("image", this.images);
+                        this.images[i].src =  "/images/" + name  ;
+                        //this.images[i].srcSet =  "/images/" + name + "640w" ;
+                        this.item = this.images;
+                        console.log("image", this.images);
+                        console.log("items", this.item);
+                    //}
+                }
             });        
             
         },    
@@ -94,8 +130,20 @@ import GoogleMap from '@/components/GoogleMap.vue';
             this.$router.go();
         },
         computed : {
-            isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+            isLoggedIn : function(){ 
+                return this.$store.getters.isLoggedIn
+            }
         },
+
+        methods: {
+          
+             // the index parameter is optional, however it should be set if you're opening
+            // the overlay on different position than the beginning of the gallery
+            openOverlayProgramaticallyWithoutContext (item) {
+            this.$silentbox.open(item)
+            }
+           
+        }
     }
     
 </script>

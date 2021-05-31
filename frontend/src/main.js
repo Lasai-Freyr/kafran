@@ -6,13 +6,16 @@ import VueTextareaAutosize from "vue-textarea-autosize";
 import * as VueGoogleMaps from 'vue2-google-maps'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueSilentbox from 'vue-silentbox'
 import store from './store'
+
 require('dotenv').config();
 
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
 Vue.use(VueTextareaAutosize);
+Vue.use(VueSilentbox)
 
 Vue.use(VueGoogleMaps, {
   load: {    
