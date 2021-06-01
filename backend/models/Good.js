@@ -30,7 +30,7 @@ Good.createAGood = (goodObject, result) => {
   sql.query(`INSERT INTO goods values(null, ${goodObject.squarreMeters}, "${goodObject.style}", ${goodObject.price}, ${goodObject.nbrSDB},
   ${goodObject.nbrBedrooms}, "${goodObject.city}", "${goodObject.address}", NOW(), "${goodObject.pic1}", "${goodObject.pic2}", "${goodObject.pic3}", "${goodObject.pic3}", 
   "${goodObject.pic4}", "${goodObject.pic5}", "${goodObject.pic6}", "${goodObject.pic7}", "${goodObject.pic8}","${goodObject.pic9}",
-  "${goodObject.description}", ${goodObject.postalCode})`, (err, res) => {
+  "${goodObject.description}", '${goodObject.postalCode}')`, (err, res) => {
     if (err) {
       console.log('error: ', err );
         result(null, err);

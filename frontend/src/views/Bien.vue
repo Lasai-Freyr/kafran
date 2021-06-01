@@ -23,7 +23,8 @@
                 </template>
             </silent-box>
                 <img :src="`/images/${good.pic2}`" :alt="good.pic2">                
-                <p> {{ good.description}} </p>
+                <p> {{ description}}  description</p>
+                <p> {{ good.description}} good.description</p>
                 <div id="map">
                     <GoogleMap />                    
                 </div>
@@ -89,6 +90,8 @@ import GoogleMap from '@/components/GoogleMap.vue';
                     state: '',
                     zip: '',
                 },
+                description: "",
+                define:""
                    
                 //userId: localStorage.getItem('user'),
             } 
@@ -121,6 +124,14 @@ import GoogleMap from '@/components/GoogleMap.vue';
                         this.item = this.images;
                         console.log("image", this.images);
                         console.log("items", this.item);
+                        console.log("description", this.good.description);
+                        console.log("description", JSON.stringify(this.good.description) );
+                        //this.description = JSON.stringify(this.good.description)
+                         console.log("description 2", this.description);
+                         this.description = JSON.stringify(this.good.description) ;
+                        this.good.description =  this.good.description.split("\n").join(  ` <br> ` );                       
+                        console.log("description 32", this.good.description);
+                       
                     //}
                 }
             });        

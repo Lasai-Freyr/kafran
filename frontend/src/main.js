@@ -8,11 +8,11 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueSilentbox from 'vue-silentbox'
 import store from './store'
-
+import { BCarousel } from 'bootstrap-vue'
 require('dotenv').config();
 
-
-Vue.config.productionTip = false
+Vue.component('b-carousel', BCarousel);
+Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueTextareaAutosize);
 Vue.use(VueSilentbox)
