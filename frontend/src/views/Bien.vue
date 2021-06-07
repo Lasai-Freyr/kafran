@@ -12,25 +12,19 @@
                     <article v-if="good.pic1" class="col-sm-6">
                        
                     </article>
-                </div>
-            <silent-box ref="silentbox" :gallery="images">
-                <p class="tw-font-light tw-mb-3">
-                    Items could be merged into groups that make galleries.
-                </p>
-                <template v-slot:silentbox-item="{ silentboxItem }">
-                    <p>{{ silentboxItem  }}</p>
-                    <img :src="`/images/${good.pic1}`" :alt="good.pic2">  
-                </template>
-            </silent-box>
-                <img :src="`/images/${good.pic2}`" :alt="good.pic2">                
+                </div>  
+           
+                <SilentBox/>
+
                 <p> {{ description}}  description</p>
                 <p> {{ good.description}} good.description</p>
                 <div id="map">
                     <GoogleMap />                    
                 </div>
                 <p v-if="isLoggedIn"> Publié le {{ good.dateAjout}}  </p>
-            </div>                       
-        </div >
+            </div>
+         </div >
+
     </div>
 </template>
 
@@ -51,10 +45,141 @@
             width: 700px;
             margin: 50px auto;
         }
+
+    .row > .column {
+  padding: 0 8px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Create four equal columns that floats next to eachother */
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Hide the slides by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Caption text */
+.caption-container {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}
+
+img.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+img.hover-shadow {
+  transition: 0.3s;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
     
 </style>
 
+
 <script>
+
+//import LightBox from '@/components/LightBoxPerso.vue'
+import SilentBox from '@/components/Silentbox.vue'
+
 import http from '../../http';
 import Modd from '@/components/Form-Modify.vue';
 import GoogleMap from '@/components/GoogleMap.vue';
@@ -66,20 +191,12 @@ import GoogleMap from '@/components/GoogleMap.vue';
         components: {
         Modd,
         GoogleMap,
-        
+        SilentBox
         
     },
         data() {
             return {           
                 good: {},
-               images: [
-                    {
-                        src: "",
-                        srcSet: '',
-                        description: '',
-                    },
-                   
-                ],
                 modd: false,                
                 error: null,
                 user: null,
@@ -90,8 +207,61 @@ import GoogleMap from '@/components/GoogleMap.vue';
                     state: '',
                     zip: '',
                 },
+                items: [
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    },
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    },
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    },
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    },
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    },
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    },
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    },
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    },
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    },
+                    {
+                        title: '',
+                        description: '',
+                        src: '',
+                    }
+                ],
+                index: null,
                 description: "",
-                define:""
+                define:"",
                    
                 //userId: localStorage.getItem('user'),
             } 
@@ -114,26 +284,24 @@ import GoogleMap from '@/components/GoogleMap.vue';
             .then(response => {
                 console.log("datapost",response.data);
                 this.good = response.data[0];
-                for (let i = 0 ; i < 9 ; i++) {
-                    //if ( this.good.pic[i+1]) {
-                        let name = "this.good.pic" + i;
-                        console.log("name", name);
-                        console.log("image", this.images);
-                        this.images[i].src =  "/images/" + name  ;
-                        //this.images[i].srcSet =  "/images/" + name + "640w" ;
-                        this.item = this.images;
-                        console.log("image", this.images);
-                        console.log("items", this.item);
-                        console.log("description", this.good.description);
-                        console.log("description", JSON.stringify(this.good.description) );
-                        //this.description = JSON.stringify(this.good.description)
-                         console.log("description 2", this.description);
-                         this.description = JSON.stringify(this.good.description) ;
-                        this.good.description =  this.good.description.split("\n").join(  ` <br> ` );                       
-                        console.log("description 32", this.good.description);
-                       
-                    //}
-                }
+            //    let images = [ this.good.pic1 , this.good.pic2, this.good.pic3,
+            //     this.good.pic4, this.good.pic5, this.good.pic6, this.good.pic7,
+            //      this.good.pic8, this.good.pic8, this.good.pic9, this.good.pic10]
+            //
+            //    for (let i = 0 ; i < 9 ; i++) {
+            //        if ( images[i] != undefined ) {
+            //            
+            //            this.items[i].src =  "/images/" + images[i];
+            //            console.log("items", this.items);
+            //        }
+            //    }
+                console.log("description", this.good.description);
+                console.log("description", JSON.stringify(this.good.description) );
+                //this.description = JSON.stringify(this.good.description)
+                console.log("description 2", this.description);
+                this.description = JSON.stringify(this.good.description) ;
+                this.good.description =  this.good.description.split("\n").join(  ` <br> ` );                       
+                console.log("description 32", this.good.description);
             });        
             
         },    
@@ -152,8 +320,8 @@ import GoogleMap from '@/components/GoogleMap.vue';
             // the overlay on different position than the beginning of the gallery
             openOverlayProgramaticallyWithoutContext (item) {
             this.$silentbox.open(item)
-            }
-           
+            },
+       
         }
     }
     
